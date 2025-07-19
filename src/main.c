@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <string.h>
-#include <stddef.h> 
+#include <stddef.h>
+#include <stdlib.h>
+
 #include "str.h"
+#include "merge_sort.h"
 
 
 signed main(){
@@ -20,6 +23,27 @@ signed main(){
 
     char *s1 = "abc", *s2 = NULL;
     printf("%d\n", my_str_cmp(s1, s2));
+
+    // ________________________
+
+    int arr[] = {12, 11, 13, 5, 6, 7};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    printf("Before sorting: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    merge_sort(arr, arr + size);
+
+    printf("After sorting: ");
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+
+    // ______________________
 
     return 0;
 }

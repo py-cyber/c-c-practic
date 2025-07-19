@@ -1,20 +1,27 @@
-all: output
-
 CC ?= gcc
 CFLAGS ?= -Iinclude -std=c17 -Wall -Wextra -pedantic -Werror
+LDFLAGS ?=
 
-.PHONY: clean
-clean:
-	rm -rf output
+SRC_DIR = src
+OBJ_DIR = obj
+INC_DIR = include
 
-obj:
-	mkdir -p obj
+SOURCES = $(wildcard $(SRC_DIR)/*.c)
+OBJECTS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SOURCES))
+EXECUTABLE = output
 
-output: obj/main.o obj/str.o
+.PHONY: all clean
+
+all: $(EXECUTABLE)
+
+$(EXECUTABLE): $(OBJECTS)
 	$(CC) $(LDFLAGS) $^ -o $@
 
-obj/main.o: src/main.c include/str.h | obj
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) -c $(CFLAGS) $< -o $@
 
-obj/str.o: src/str.c include/str.h | obj
-	$(CC) -c $(CFLAGS) $< -o $@
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
+
+clean:
+	rm -rf $(EXECUTABLE) $(OBJ_DIR)
