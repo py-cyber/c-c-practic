@@ -5,6 +5,7 @@
 
 #include "str.h"
 #include "merge_sort.h"
+#include "intrusive_list.h"
 
 
 signed main(){
@@ -42,6 +43,22 @@ signed main(){
         printf("%d ", arr[i]);
     }
     printf("\n");
+
+    // ______________________
+
+    intrusive_list my_list;
+    init_list(&my_list);
+    
+    intrusive_node node1, node2;
+    
+    add_node(&(my_list.head), &node1);
+    add_node(&node1, &node2);
+    
+    printf("Length: %d\n", get_length(&my_list));
+    
+    remove_node(&node1);
+    
+    printf("Length after removal: %d\n", get_length(&my_list));
 
     // ______________________
 
